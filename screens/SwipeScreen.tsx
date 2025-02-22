@@ -19,6 +19,9 @@ type Activity = {
 };
 
 export default function SwipeScreen() {
+  const [rightSwipes, setRightSwipes] = React.useState(0);
+  const [showResults, setShowResults] = React.useState(false);
+  
   const activities = [
     // Food & Drinks
     { id: 1, title: 'Coffee Date', description: 'Casual coffee meetup' },
@@ -41,6 +44,15 @@ export default function SwipeScreen() {
     const swipedActivity = activities[cardIndex];
     if (!swipedActivity) return;
 
+    if (direction === 'right') {
+      setRightSwipes(prev => prev + 1);
+    }
+
+    // Check if this is the last card
+    if (cardIndex === activities.length - 1) {
+      setShowResults(true);
+    }
+
     try {
       await addDoc(collection(db, 'swipes'), {
         activityId: swipedActivity.id,
@@ -57,21 +69,29 @@ export default function SwipeScreen() {
 
   return (
     <View style={styles.container}>
-      <Swiper
-        cards={activities}
-        renderCard={(card: Activity) => (
-          <View style={styles.card}>
-            <Text style={styles.cardTitle}>{card.title}</Text>
-            <Text style={styles.cardDescription}>{card.description}</Text>
-          </View>
-        )}
-        onSwipedLeft={(cardIndex) => handleSwipe('left', cardIndex)}
-        onSwipedRight={(cardIndex) => handleSwipe('right', cardIndex)}
-        cardIndex={0}
-        backgroundColor={'#F5F5F5'}
-        stackSize={3}
-        cardStyle={styles.cardStyle}
-      />
+      {!showResults ? (
+        <Swiper
+          cards={activities}
+          renderCard={(card: Activity) => (
+            <View style={styles.card}>
+              <Text style={styles.cardTitle}>{card.title}</Text>
+              <Text style={styles.cardDescription}>{card.description}</Text>
+            </View>
+          )}
+          onSwipedLeft={(cardIndex) => handleSwipe('left', cardIndex)}
+          onSwipedRight={(cardIndex) => handleSwipe('right', cardIndex)}
+          cardIndex={0}
+          backgroundColor={'#F5F5F5'}
+          stackSize={3}
+          cardStyle={styles.cardStyle}
+        />
+      ) : (
+        <View style={styles.resultsContainer}>
+          <Text style={styles.resultsText}>
+            You liked {rightSwipes} activities!
+          </Text>
+        </View>
+      )}
     </View>
   );
 }
@@ -109,5 +129,15 @@ const styles = StyleSheet.create({
   cardDescription: {
     fontSize: 16,
     color: '#666',
+  },
+  resultsContainer: {
+    flex: 1,
+    justifyContent: 'center',
+    alignItems: 'center',
+  },
+  resultsText: {
+    fontSize: 24,
+    fontWeight: 'bold',
+    color: '#333',
   },
 }); 
