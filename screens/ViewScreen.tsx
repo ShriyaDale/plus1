@@ -1,5 +1,5 @@
 import React, { useState } from "react";
-import { View, Text, TouchableOpacity, StyleSheet, ScrollView } from "react-native";
+import { View, Text, TouchableOpacity, StyleSheet, ScrollView, Image } from "react-native";
 
 const ViewScreen = () => {
   const [activeTab, setActiveTab] = useState("DateIdeas");
@@ -15,7 +15,7 @@ const ViewScreen = () => {
     <View style={styles.container}>
       {/* Header */}
       <View style={styles.header}>
-        <Text style={styles.title}>p1us 💜</Text>
+        <Image source={require('../constants/logo.png')} style={{ width: 146, height: 80 }} />
         <Text style={styles.subtitle}>View Menu</Text>
       </View>
 
