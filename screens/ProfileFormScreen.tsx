@@ -5,7 +5,7 @@ import { StackNavigationProp } from '@react-navigation/stack';
 import { RouteProp } from '@react-navigation/native';
 import { RootStackParamList } from '../App';
 import { collection, query, where, getDocs } from 'firebase/firestore';
-import { db } from '../firebase/config';
+import { db } from '../firebaseConfig';
 
 type ProfileFormScreenProps = {
   navigation: StackNavigationProp<RootStackParamList, 'ProfileForm'>;
