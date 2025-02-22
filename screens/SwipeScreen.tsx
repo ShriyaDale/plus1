@@ -1,5 +1,5 @@
 import React from 'react';
-import { View, Text, StyleSheet, Dimensions } from 'react-native';
+import { View, Text, StyleSheet, Dimensions, ImageBackground } from 'react-native';
 import Swiper from 'react-native-deck-swiper';
 import { getFirestore, collection, addDoc } from 'firebase/firestore';
 import { initializeApp } from 'firebase/app';
@@ -12,7 +12,6 @@ const SCREEN_WIDTH = Dimensions.get('window').width;
 initializeApp(firebaseConfig);
 const db = getFirestore();
 
-
 type Activity = {
   id: number;
   title: string;
@@ -24,19 +23,15 @@ export const rightSwipedActivities: Activity[] = [];
 
 export default function SwipeScreen() {
   const activities = [
-    // Food & Drinks
     { id: 1, title: 'Coffee Date', description: 'Casual coffee meetup' },
     { id: 2, title: 'Dinner Date', description: 'Go to a nice restaurant' },  
-    // Entertainment & Culture
     { id: 3, title: 'Movie Night', description: 'Watch a movie together' },
     { id: 4, title: 'Live Comedy Show', description: 'Laugh together at a comedy club' },
     { id: 5, title: 'Concert', description: 'See a live music performance' },
     { id: 6, title: 'Escape Room', description: 'Solve puzzles to escape within a time limit' },
-    // Outdoor Adventures
     { id: 7, title: 'Hiking', description: 'Outdoor adventure' },
     { id: 8, title: 'Beach Day', description: 'Relax by the water or play beach sports' },
     { id: 9, title: 'Kayaking', description: 'Paddle through lakes or rivers' },
-    // Creative & Interactive
     { id: 10, title: 'Pottery Class', description: 'Create something together' },
     { id: 11, title: 'Music Jam Session', description: 'Play instruments or sing together' },
   ];
@@ -88,34 +83,43 @@ export default function SwipeScreen() {
   );
 }
 
+
 const styles = StyleSheet.create({
   container: {
     flex: 1,
-    backgroundColor: '#F5F5F5',
+    backgroundColor: '#D8C1EB',
   },
   card: {
     width: SCREEN_WIDTH * 0.9,
-    height: SCREEN_WIDTH * 1.2,
-    backgroundColor: 'white',
+    aspectRatio: 3 / 4,
     borderRadius: 20,
-    padding: 20,
-    justifyContent: 'center',
-    alignItems: 'center',
+    overflow: 'hidden',
     shadowColor: '#000',
-    shadowOffset: {
-      width: 0,
-      height: 2,
-    },
+    shadowOffset: { width: 0, height: 2 },
     shadowOpacity: 0.25,
     shadowRadius: 3.84,
     elevation: 5,
   },
-  cardStyle: {
-    top: 50,
+  imageBackground: {
+    width: '100%',
+    height: '100%',
+  },
+  overlay: {
+    ...StyleSheet.absoluteFillObject,
+    backgroundColor: 'rgba(0, 0, 0, 0.65)', 
+  },
+  textContainer: {
+    ...StyleSheet.absoluteFillObject,
+    justifyContent: 'center',
+    alignItems: 'center',
+    padding: 15,
+    zIndex: 1,
   },
   cardTitle: {
     fontSize: 24,
     fontWeight: 'bold',
+    color: 'white',
+    textAlign: 'center',
     marginBottom: 10,
   },
   cardDescription: {
