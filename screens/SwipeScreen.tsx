@@ -4,7 +4,6 @@ import Swiper from 'react-native-deck-swiper';
 import { useNavigation } from '@react-navigation/native';
 import { NativeStackNavigationProp } from '@react-navigation/native-stack';
 import ViewScreen from './ViewScreen'; 
-import Swiper from 'react-native-deck-swiper';
 import { getFirestore, collection, addDoc } from 'firebase/firestore';
 import { initializeApp } from 'firebase/app';
 import { firebaseConfig } from '../firebaseConfig';
@@ -39,9 +38,7 @@ export default function SwipeScreen() {
   'Kayaking': require('../assets/images/kayaking.jpg'),
   'Pottery Class': require('../assets/images/pottery-class.jpg'),
   'Music Jam Session': require('../assets/images/music-jam-session.jpg'),
-};
-
-export default function SwipeScreen() {
+  }  
   const [rightSwipes, setRightSwipes] = React.useState(0);
   const [showResults, setShowResults] = React.useState(false);
   const activities = [
@@ -165,7 +162,8 @@ const styles = StyleSheet.create({
   },
   cardStyle: {
     top: 50,
-    imageBackground: {
+  },
+  imageBackground: {
     width: '100%',
     height: '100%',
   },
