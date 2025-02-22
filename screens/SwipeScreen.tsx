@@ -31,6 +31,9 @@ const activityImages: { [key: string]: any } = {
 };
 
 export default function SwipeScreen() {
+  const [rightSwipes, setRightSwipes] = React.useState(0);
+  const [showResults, setShowResults] = React.useState(false);
+  
   const activities = [
     { id: 1, title: 'Coffee Date', description: 'Casual coffee meetup' },
     { id: 2, title: 'Dinner Date', description: 'Go to a nice restaurant' },  
@@ -48,6 +51,15 @@ export default function SwipeScreen() {
   const handleSwipe = async (direction: string, cardIndex: number) => {
     const swipedActivity = activities[cardIndex];
     if (!swipedActivity) return;
+
+    if (direction === 'right') {
+      setRightSwipes(prev => prev + 1);
+    }
+
+    // Check if this is the last card
+    if (cardIndex === activities.length - 1) {
+      setShowResults(true);
+    }
 
     try {
       await addDoc(collection(db, 'swipes'), {
