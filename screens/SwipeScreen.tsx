@@ -37,8 +37,6 @@ export default function SwipeScreen() {
     { id: 11, title: 'Music Jam Session', description: 'Play instruments or sing together' },
   ];
   
-  
-
   const handleSwipe = async (direction: string, cardIndex: number) => {
     const swipedActivity = activities[cardIndex];
     if (!swipedActivity) return;
@@ -55,7 +53,6 @@ export default function SwipeScreen() {
     } catch (error) {
       console.error('Error saving swipe data:', error);
     }
-
   };
 
   return (
