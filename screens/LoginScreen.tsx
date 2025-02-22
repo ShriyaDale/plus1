@@ -52,6 +52,7 @@ const styles = StyleSheet.create({
     borderRadius: 8,
     marginBottom: 10,
     paddingHorizontal: 10,
+    fontFamily: 'InstrumentSans-Regular',
   },
   button: {
     backgroundColor: '#007AFF',
@@ -63,5 +64,6 @@ const styles = StyleSheet.create({
     color: 'white',
     fontSize: 16,
     fontWeight: 'bold',
+    fontFamily: 'InstrumentSans-Bold',
   },
 }); 
