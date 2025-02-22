@@ -4,6 +4,7 @@ import Swiper from 'react-native-deck-swiper';
 import { getFirestore, collection, addDoc } from 'firebase/firestore';
 import { initializeApp } from 'firebase/app';
 import { firebaseConfig } from '../firebaseConfig';
+import { generateDateRecommendations } from '../utils/generateDatePlan';
 
 
 const SCREEN_WIDTH = Dimensions.get('window').width;
@@ -18,10 +19,10 @@ type Activity = {
   description: string;
 };
 
+// Add this global array before the SwipeScreen component
+export const rightSwipedActivities: Activity[] = [];
+
 export default function SwipeScreen() {
-  const [rightSwipes, setRightSwipes] = React.useState(0);
-  const [showResults, setShowResults] = React.useState(false);
-  
   const activities = [
     // Food & Drinks
     { id: 1, title: 'Coffee Date', description: 'Casual coffee meetup' },
@@ -44,15 +45,6 @@ export default function SwipeScreen() {
     const swipedActivity = activities[cardIndex];
     if (!swipedActivity) return;
 
-    if (direction === 'right') {
-      setRightSwipes(prev => prev + 1);
-    }
-
-    // Check if this is the last card
-    if (cardIndex === activities.length - 1) {
-      setShowResults(true);
-    }
-
     try {
       await addDoc(collection(db, 'swipes'), {
         activityId: swipedActivity.id,
@@ -60,7 +52,15 @@ export default function SwipeScreen() {
         description: swipedActivity.description,
         direction: direction,
         timestamp: new Date(),
-      });
+      }); 
+      
+      if (direction === 'right') {
+        rightSwipedActivities.push(swipedActivity);
+        console.log('Updated right swipes array:', rightSwipedActivities);
+        // Generate new recommendations after each right swipe
+        await generateDateRecommendations();
+      }
+      
       console.log(`Swiped ${direction} on:`, swipedActivity);
     } catch (error) {
       console.error('Error saving swipe data:', error);
@@ -69,29 +69,21 @@ export default function SwipeScreen() {
 
   return (
     <View style={styles.container}>
-      {!showResults ? (
-        <Swiper
-          cards={activities}
-          renderCard={(card: Activity) => (
-            <View style={styles.card}>
-              <Text style={styles.cardTitle}>{card.title}</Text>
-              <Text style={styles.cardDescription}>{card.description}</Text>
-            </View>
-          )}
-          onSwipedLeft={(cardIndex) => handleSwipe('left', cardIndex)}
-          onSwipedRight={(cardIndex) => handleSwipe('right', cardIndex)}
-          cardIndex={0}
-          backgroundColor={'#F5F5F5'}
-          stackSize={3}
-          cardStyle={styles.cardStyle}
-        />
-      ) : (
-        <View style={styles.resultsContainer}>
-          <Text style={styles.resultsText}>
-            You liked {rightSwipes} activities!
-          </Text>
-        </View>
-      )}
+      <Swiper
+        cards={activities}
+        renderCard={(card: Activity) => (
+          <View style={styles.card}>
+            <Text style={styles.cardTitle}>{card.title}</Text>
+            <Text style={styles.cardDescription}>{card.description}</Text>
+          </View>
+        )}
+        onSwipedLeft={(cardIndex) => handleSwipe('left', cardIndex)}
+        onSwipedRight={(cardIndex) => handleSwipe('right', cardIndex)}
+        cardIndex={0}
+        backgroundColor={'#F5F5F5'}
+        stackSize={3}
+        cardStyle={styles.cardStyle}
+      />
     </View>
   );
 }
@@ -129,15 +121,5 @@ const styles = StyleSheet.create({
   cardDescription: {
     fontSize: 16,
     color: '#666',
-  },
-  resultsContainer: {
-    flex: 1,
-    justifyContent: 'center',
-    alignItems: 'center',
-  },
-  resultsText: {
-    fontSize: 24,
-    fontWeight: 'bold',
-    color: '#333',
   },
 }); 
