@@ -1,6 +1,8 @@
 import React from 'react';
 import { View, Text, StyleSheet, Dimensions } from 'react-native';
 import Swiper from 'react-native-deck-swiper';
+import AsyncStorage from '@react-native-async-storage/async-storage';
+
 
 const SCREEN_WIDTH = Dimensions.get('window').width;
 
@@ -87,9 +89,29 @@ export default function SwipeScreen() {
   
   
 
-  const handleSwipe = (direction: string, cardIndex: number) => {
-    // Handle swipe logic here
+  const handleSwipe = async (direction: string, cardIndex: number) => {
+
     console.log(`Swiped ${direction} on card ${cardIndex}`);
+
+    const swipedActivity = activities[cardIndex];
+
+    if (!swipedActivity) return;
+
+    const storageKey = direction === 'right' ? 'yes_swipes' : 'no_swipes';
+
+    try {
+      const existingData = await AsyncStorage.getItem(storageKey);
+      const updatedData = existingData ? JSON.parse(existingData) : [];
+
+      updatedData.push(swipedActivity);
+
+      await AsyncStorage.setItem(storageKey, JSON.stringify(updatedData));
+
+      console.log(`Swiped ${direction} on:`, swipedActivity);
+    } catch (error) {
+      console.error('Error saving swipe data:', error);
+    }
+
   };
 
   return (
