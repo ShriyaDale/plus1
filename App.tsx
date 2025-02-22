@@ -14,6 +14,7 @@ export type RootStackParamList = {
   Intent: undefined;
   ProfileForm: { type: 'friend' | 'partner' };
   Swipe: undefined;
+  View: undefined;
 };
 
 const Stack = createStackNavigator<RootStackParamList>();
