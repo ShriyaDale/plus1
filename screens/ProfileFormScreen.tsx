@@ -1,9 +1,11 @@
-import React, { useState } from 'react';
+import React, { useState, useEffect } from 'react';
 import { View, TextInput, TouchableOpacity, Text, StyleSheet, ScrollView } from 'react-native';
 import { Picker } from '@react-native-picker/picker';
 import { StackNavigationProp } from '@react-navigation/stack';
 import { RouteProp } from '@react-navigation/native';
 import { RootStackParamList } from '../App';
+import { collection, query, where, getDocs } from 'firebase/firestore';
+import { db } from '../firebaseConfig';
 
 type ProfileFormScreenProps = {
   navigation: StackNavigationProp<RootStackParamList, 'ProfileForm'>;
@@ -17,9 +19,59 @@ export default function ProfileFormScreen({ navigation, route }: ProfileFormScre
     gender: '',
     orientation: '',
   });
+  
+  // Add swipe counter state
+  const [swipeCount, setSwipeCount] = useState(0);
 
-  const handleSubmit = () => {
+  // Add useEffect to watch swipe count
+  useEffect(() => {
+    if (swipeCount >= 10) {
+      const userId = 'current-user-id'; // Replace with actual user ID
+      getRightSwipes(userId).then(swipes => {
+        console.log('After 10 swipes, right swipes data:', swipes);
+        setSwipeCount(0); // Reset counter after checking
+      });
+    }
+  }, [swipeCount]);
+
+  // Add function to handle swipes
+  const handleSwipe = (direction: string) => {
+    setSwipeCount(prev => prev + 1);
+    // Your existing swipe logic here
+  };
+
+  const getRightSwipes = async (userId: string) => {
+    try {
+      const swipesRef = collection(db, 'swipes');
+      const q = query(
+        swipesRef,
+        where('userId', '==', userId),
+        where('direction', '==', 'right')
+      );
+
+      const querySnapshot = await getDocs(q);
+      const rightSwipes: { [key: string]: any } = {};
+
+      querySnapshot.forEach((doc) => {
+        const data = doc.data();
+        rightSwipes[doc.id] = {
+          swipedUserId: data.swipedUserId,
+          timestamp: data.timestamp,
+        };
+      });
+
+      console.log('Right swipes:', rightSwipes);
+      return rightSwipes;
+    } catch (error) {
+      console.error('Error getting right swipes:', error);
+      return {};
+    }
+  };
+
+  const handleSubmit = async () => {
     // Add form validation and submission logic here
+    const userId = 'current-user-id'; // Replace with actual user ID
+    const rightSwipes = await getRightSwipes(userId);
     navigation.navigate('Swipe');
   };
 
