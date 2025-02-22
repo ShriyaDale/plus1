@@ -1,13 +1,8 @@
 import React, { useState } from "react";
-import {StackNavigationProp} from '@react-navigation/stack';
-import {RootStackParamList} from '../App'; 
+import { View, Text, TouchableOpacity, StyleSheet, ScrollView } from "react-native";
 
-const App = () => {
-  const [activeTab, setActiveTab] = useState("Date Ideas");
-
-type ViewScreenProps = {
-  navigation: StackNavigationProp<RootStackParamList, 'View'>;
-};
+const ViewScreen = () => {
+  const [activeTab, setActiveTab] = useState("DateIdeas");
 
   const dateIdeas = [
     { id: 1, location: "Date location", date: "2/22/2025" },
@@ -17,79 +12,144 @@ type ViewScreenProps = {
   ];
 
   return (
-    <div className="flex flex-col h-screen bg-purple-300">
+    <View style={styles.container}>
       {/* Header */}
-      <div className="bg-purple-100 p-5 text-center">
-        <h1 className="text-3xl font-bold text-purple-800">p1us 💜</h1>
-        <h2 className="text-2xl font-semibold text-purple-900">View Menu</h2>
-      </div>
+      <View style={styles.header}>
+        <Text style={styles.title}>p1us 💜</Text>
+        <Text style={styles.subtitle}>View Menu</Text>
+      </View>
 
       {/* Tabs */}
-      <div className="flex bg-purple-400 p-2">
-        <button
-          className={`flex-1 py-2 rounded-t-lg ${
-            activeTab === "Date Ideas" ? "bg-purple-500 text-white" : "bg-white"
-          }`}
-          onClick={() => setActiveTab("Date Ideas")}
+      <View style={styles.tabContainer}>
+        <TouchableOpacity 
+          style={[styles.tab, activeTab === "DateIdeas" ? styles.activeTab : null]}
+          onPress={() => setActiveTab("DateIdeas")}
         >
-          Date Ideas
-        </button>
-        <button
-          className={`flex-1 py-2 rounded-t-lg ${
-            activeTab === "Matches" ? "bg-purple-500 text-white" : "bg-white"
-          }`}
-          onClick={() => setActiveTab("Matches")}
+          <Text style={[styles.tabText, activeTab === "DateIdeas" ? styles.activeTabText : null]}>
+            Date Ideas
+          </Text>
+        </TouchableOpacity>
+        <TouchableOpacity 
+          style={[styles.tab, activeTab === "Matches" ? styles.activeTab : null]}
+          onPress={() => setActiveTab("Matches")}
         >
-          Matches
-        </button>
-      </div>
+          <Text style={[styles.tabText, activeTab === "Matches" ? styles.activeTabText : null]}>
+            Matches
+          </Text>
+        </TouchableOpacity>
+      </View>
 
       {/* Content */}
-      <div className="flex-grow overflow-y-auto p-4 bg-purple-400">
-        {activeTab === "Date Ideas" &&
+      <ScrollView style={styles.contentContainer}>
+        {activeTab === "DateIdeas" &&
           dateIdeas.map((date) => (
-            <div
-              key={date.id}
-              className="bg-purple-100 p-4 rounded-lg flex items-center mb-4"
-            >
-              <div className="w-12 h-12 bg-purple-700 rounded-full mr-4"></div>
-              <div>
-                <h3 className="text-purple-800 font-semibold">{date.location}</h3>
-                <p className="text-purple-700">Selected: {date.date}</p>
-              </div>
-            </div>
+            <View key={date.id} style={styles.card}>
+              <View style={styles.circle}></View>
+              <View>
+                <Text style={styles.cardTitle}>{date.location}</Text>
+                <Text style={styles.cardSubtitle}>Selected: {date.date}</Text>
+              </View>
+            </View>
           ))}
-        <button className="w-full bg-white text-purple-800 py-2 rounded-lg mt-2">
-          Choose More
-        </button>
-      </div>
+        <TouchableOpacity style={styles.button}>
+          <Text style={styles.buttonText}>Choose More</Text>
+        </TouchableOpacity>
+      </ScrollView>
 
       {/* Footer Navigation */}
-      <div className="flex justify-around bg-purple-800 text-white py-4">
-        <button>
-          {/* Home Icon */}
-          <svg xmlns="http://www.w3.org/2000/svg" className="w-6 h-6" viewBox="0 0 24 24" fill="none" stroke="currentColor" strokeWidth="2" strokeLinecap="round" strokeLinejoin="round">
-            <path d="M3 9L12 2l9 7v11a2 2 0 0 1-2 2H5a2 2 0 0 1-2-2z"></path>
-            <polyline points="9 22 9 12 15 12 15 22"></polyline>
-          </svg>
-        </button>
-        <button>
-          {/* Eye Icon */}
-          <svg xmlns="http://www.w3.org/2000/svg" className="w-6 h-6" viewBox="0 0 24 24" fill="none" stroke="currentColor" strokeWidth="2" strokeLinecap="round" strokeLinejoin="round">
-            <path d="M1 12s4-8 11-8 11 8 11 8-4 8-11 8S1 12 1 12z"></path>
-            <circle cx="12" cy="12" r="3"></circle>
-          </svg>
-        </button>
-        <button>
-          {/* User Icon */}
-          <svg xmlns="http://www.w3.org/2000/svg" className="w-6 h-6" viewBox="0 0 24 24" fill="none" stroke="currentColor" strokeWidth="2" strokeLinecap="round" strokeLinejoin="round">
-            <path d="M20 21v-2a4 4 0 0 0-4-4H8a4 4 0 0 0-4 4v2"></path>
-            <circle cx="12" cy="7" r="4"></circle>
-          </svg>
-        </button>
-      </div>
-    </div>
+      <View style={styles.footer}>
+        <TouchableOpacity>
+          <Text style={styles.icon}>🏠</Text>
+        </TouchableOpacity>
+        <TouchableOpacity>
+          <Text style={styles.icon}>👁</Text>
+        </TouchableOpacity>
+        <TouchableOpacity>
+          <Text style={styles.icon}>👤</Text>
+        </TouchableOpacity>
+      </View>
+    </View>
   );
 };
 
-export default App;
+export default ViewScreen;
+
+const styles = StyleSheet.create({
+  container: {
+    flex: 1,
+    backgroundColor: "#D8BFD8",
+  },
+  header: {
+    backgroundColor: "#E6E6FA",
+    padding: 20,
+    alignItems: "center",
+  },
+  title: {
+    fontSize: 24,
+    fontWeight: "bold",
+    color: "#6A0DAD",
+  },
+  subtitle: {
+    fontSize: 18,
+    color: "#4B0082",
+  },
+  tabContainer: {
+    flexDirection: "row",
+    backgroundColor: "#DDA0DD",
+    paddingVertical: 10,
+  },
+  tab: {
+    flex: 1,
+    alignItems: "center",
+    paddingVertical: 10,
+  },
+  activeTab: {
+    backgroundColor: "#BA55D3",
+  },
+  tabText: {
+    fontSize: 16,
+    color: "#333",
+  },
+  activeTabText: {
+    color: "white",
+    fontWeight: "bold",
+  },
+  contentContainer: {
+    flex: 1,
+    padding: 10,
+  },
+  card: {
+    flexDirection: "row",
+    alignItems: "center",
+    backgroundColor: "white",
+    padding: 15,
+    marginVertical: 5,
+    borderRadius: 10,
+  },
+  circle: {
+    width: 40,
+    height: 40,
+    backgroundColor: "#6A0DAD",
+    borderRadius: 20,
+    marginRight: 15,
+  },
+  cardTitle: {
+    fontSize: 16,
+    fontWeight: "bold",
+    color: "#6A0DAD",
+  },
+  cardSubtitle: {
+    fontSize: 14,
+    color: "#4B0082",
+  },
+  footer: {
+    flexDirection: "row",
+    justifyContent: "space-around",
+    backgroundColor: "#6A0DAD",
+    paddingVertical: 15,
+  },
+  icon: {
+    fontSize: 24,
+    color: "white",
+  },  
+});
