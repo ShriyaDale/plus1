@@ -70,7 +70,6 @@ const styles = StyleSheet.create({
     marginTop: 30,
     marginBottom: 30,
     fontFamily: 'InstrumentSans-Regular',
-    color: '#333',
   },
   formContainer: {
     width: '100%',

@@ -1,5 +1,5 @@
 import React, { useState } from 'react';
-import { View, TextInput, TouchableOpacity, Text, StyleSheet } from 'react-native';
+import { View, TextInput, TouchableOpacity, Text, StyleSheet, ScrollView } from 'react-native';
 import { Picker } from '@react-native-picker/picker';
 import { StackNavigationProp } from '@react-navigation/stack';
 import { RouteProp } from '@react-navigation/native';
@@ -24,80 +24,116 @@ export default function ProfileFormScreen({ navigation, route }: ProfileFormScre
   };
 
   return (
-    <View style={styles.container}>
-      <TextInput
-        style={styles.input}
-        placeholder="Name"
-        value={formData.name}
-        onChangeText={(text) => setFormData({ ...formData, name: text })}
-      />
-      <TextInput
-        style={styles.input}
-        placeholder="Age"
-        value={formData.age}
-        onChangeText={(text) => setFormData({ ...formData, age: text })}
-        keyboardType="numeric"
-      />
-      <View style={styles.pickerContainer}>
-        <Picker
-          selectedValue={formData.gender}
-          onValueChange={(value) => setFormData({ ...formData, gender: value })}
-        >
-          <Picker.Item label="Select Gender" value="" />
-          <Picker.Item label="Male" value="male" />
-          <Picker.Item label="Female" value="female" />
-          <Picker.Item label="Non-binary" value="non-binary" />
-          <Picker.Item label="Other" value="other" />
-        </Picker>
+    <ScrollView 
+      style={styles.scrollView}
+      showsVerticalScrollIndicator={true}
+      indicatorStyle="white"
+    >
+      <View style={styles.container}>
+        <Text style={styles.title}>pre-match questions:</Text>
+        <Text style={styles.text}>preferred partner age range:</Text>
+        <View style={styles.pickerContainer}>
+          <Picker
+            selectedValue={formData.gender}
+            onValueChange={(value) => setFormData({ ...formData, gender: value })}
+            style={{ color: '#4B0082' }}
+          >
+            <Picker.Item label="age range" value="" color="#4B0082" />
+            <Picker.Item label="18 - 24" value="teen" color="#4B0082" />
+            <Picker.Item label="25 - 34" value="twenties" color="#4B0082" />
+            <Picker.Item label="35 - 44" value="mid age" color="#4B0082" />
+            <Picker.Item label="45 - 60" value="old" color="#4B0082" />
+            <Picker.Item label="60+" value="mid age" color="#4B0082" />
+            <Picker.Item label="other" value="other" color="#4B0082" />
+          </Picker>
+        </View>
+        <Text style={styles.text}>your gender:</Text>
+        <View style={styles.pickerContainer}>
+          <Picker
+            selectedValue={formData.gender}
+            onValueChange={(value) => setFormData({ ...formData, gender: value })}
+            style={{ color: '#4B0082' }}
+          >
+            <Picker.Item label="select gender" value="" color="#4B0082" />
+            <Picker.Item label="male" value="male" color="#4B0082" />
+            <Picker.Item label="female" value="female" color="#4B0082" />
+            <Picker.Item label="non-binary" value="non-binary" color="#4B0082" />
+            <Picker.Item label="other" value="other" color="#4B0082" />
+          </Picker>
+        </View>
+        <Text style={styles.text}>your sexual orientation:</Text>
+        <View style={styles.pickerContainer}>
+          <Picker
+            selectedValue={formData.orientation}
+            onValueChange={(value) => setFormData({ ...formData, orientation: value })}
+            style={{ color: '#4B0082' }}
+          >
+            <Picker.Item label="select orientation" value="" color="#4B0082" />
+            <Picker.Item label="straight" value="straight" color="#4B0082" />
+            <Picker.Item label="gay" value="gay" color="#4B0082" />
+            <Picker.Item label="bisexual" value="bisexual" color="#4B0082" />
+            <Picker.Item label="other" value="other" color="#4B0082" />
+          </Picker>
+        </View>
+        <TouchableOpacity style={styles.button} onPress={handleSubmit}>
+          <Text style={styles.buttonText}>continue</Text>
+        </TouchableOpacity>
       </View>
-      <View style={styles.pickerContainer}>
-        <Picker
-          selectedValue={formData.orientation}
-          onValueChange={(value) => setFormData({ ...formData, orientation: value })}
-        >
-          <Picker.Item label="Select Orientation" value="" />
-          <Picker.Item label="Straight" value="straight" />
-          <Picker.Item label="Gay" value="gay" />
-          <Picker.Item label="Bisexual" value="bisexual" />
-          <Picker.Item label="Other" value="other" />
-        </Picker>
-      </View>
-      <TouchableOpacity style={styles.button} onPress={handleSubmit}>
-        <Text style={styles.buttonText}>Continue</Text>
-      </TouchableOpacity>
-    </View>
+    </ScrollView>
   );
 }
 
 const styles = StyleSheet.create({
+  scrollView: {
+    flex: 1,
+    backgroundColor: '#FAF5FF',
+  },
   container: {
     flex: 1,
     padding: 20,
+    backgroundColor: '#FAF5FF',
   },
   input: {
-    height: 40,
-    borderWidth: 1,
-    borderColor: '#ccc',
-    borderRadius: 8,
-    marginBottom: 10,
-    paddingHorizontal: 10,
+    height: 50,
+    backgroundColor: '#E9D5FF',
+    color: '#4B0082',
+    borderRadius: 12,
+    marginBottom: 12,
+    paddingHorizontal: 15,
+    fontSize: 16,
+    borderWidth: 0,
+    fontFamily: 'InstrumentSans-Regular',
   },
   pickerContainer: {
-    borderWidth: 1,
-    borderColor: '#ccc',
-    borderRadius: 8,
-    marginBottom: 10,
+    backgroundColor: '#E9D5FF',
+    borderRadius: 12,
+    marginBottom: 12,
+    borderWidth: 0,
+    overflow: 'hidden',
   },
   button: {
-    backgroundColor: '#007AFF',
+    backgroundColor: '#9747FF',
     padding: 15,
-    borderRadius: 8,
+    borderRadius: 25,
     alignItems: 'center',
-    marginTop: 20,
+    marginTop: 10,
   },
   buttonText: {
     color: 'white',
     fontSize: 16,
-    fontWeight: 'bold',
+    fontFamily: 'InstrumentSans-Regular',
   },
+  text:{
+    color: '#652f90ff',
+    fontSize: 20,
+    fontFamily: 'InstrumentSans-Regular',
+    marginBottom: 20,
+  },
+  title:{
+    color: '#652f90ff',
+    fontSize: 30,
+    fontFamily: 'InstrumentSans-Regular',
+    marginBottom: 20,
+    alignSelf: 'center',
+  }
 }); 
