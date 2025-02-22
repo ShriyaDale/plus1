@@ -113,7 +113,7 @@ export default function SwipeScreen() {
         onSwipedRight={(cardIndex) => handleSwipe('right', cardIndex)}
         onSwipedAll={handleAllCardsSwiped}
         cardIndex={0}
-        backgroundColor={'#F5F5F5'}
+        backgroundColor={'#ffead1'}
         stackSize={3}
         cardStyle={styles.cardStyle}
       />
@@ -133,7 +133,7 @@ export default function SwipeScreen() {
 const styles = StyleSheet.create({
   container: {
     flex: 1,
-    backgroundColor: '#D8C1EB',
+    backgroundColor: '#ffead1',
   },
   card: {
     width: SCREEN_WIDTH * 0.9,
@@ -147,7 +147,7 @@ const styles = StyleSheet.create({
     elevation: 5,
   },
   loginButton: {
-    backgroundColor: '#9747FF',
+    backgroundColor: '#e6635a',
     padding: 10,
     borderRadius: 20,
     alignItems: 'center',

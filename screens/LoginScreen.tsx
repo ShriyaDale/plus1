@@ -21,7 +21,7 @@ export default function LoginScreen({ navigation }: LoginScreenProps) {
   return (
     <View style={styles.container}>
       <View style={styles.contentContainer}>
-        <Image source={logo} style={{ width: 146, height: 80 }} />
+        <Image source={logo} style={{ width: 146, height: 85 }} />
         <Text style={styles.title}>login or signup</Text>
         <View style={styles.formContainer}>
           <TextInput
@@ -56,7 +56,7 @@ export default function LoginScreen({ navigation }: LoginScreenProps) {
 const styles = StyleSheet.create({
   container: {
     flex: 1,
-    backgroundColor: '#f8e6ff',
+    backgroundColor: '#ffead1',
   },
   contentContainer: {
     flex: 1,
@@ -69,6 +69,7 @@ const styles = StyleSheet.create({
     fontSize: 30,
     marginTop: 30,
     marginBottom: 30,
+    color: '#e6635a', 
     fontFamily: 'InstrumentSans-Regular',
   },
   formContainer: {
@@ -96,7 +97,7 @@ const styles = StyleSheet.create({
     fontSize: 16,
   },
   loginButton: {
-    backgroundColor: '#9747FF',
+    backgroundColor: '#e6635a',
     padding: 15,
     borderRadius: 25,
     alignItems: 'center',
