@@ -21,7 +21,7 @@ export default function LoginScreen({ navigation }: LoginScreenProps) {
   return (
     <View style={styles.container}>
       <View style={styles.contentContainer}>
-        <Image source={logo} style={{ width: 146, height: 85 }} />
+        <Image source={logo} style={{ width: 100, height: 100 }} />
         <Text style={styles.title}>login or signup</Text>
         <View style={styles.formContainer}>
           <TextInput

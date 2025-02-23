@@ -87,6 +87,7 @@ const styles = StyleSheet.create({
     position: 'relative',
     justifyContent: 'center',
     alignItems: 'center',
+    color: 'black',
   },
   image: {
     width: '100%',

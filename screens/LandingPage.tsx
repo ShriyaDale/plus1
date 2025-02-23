@@ -121,7 +121,7 @@ const styles = StyleSheet.create({
     top: '25%', 
     fontSize: 24,
     color: '#fff',
-    fontWeight: 'bold',
-    textAlign: 'center',    
+    textAlign: 'center',
+    fontFamily: 'InstrumentSans-Regular',    
   }
 });
