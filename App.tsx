@@ -7,6 +7,7 @@ import LoginScreen from './screens/LoginScreen';
 import IntentScreen from './screens/IntentScreen';
 import ProfileFormScreen from './screens/ProfileFormScreen';
 import SwipeScreen from './screens/SwipeScreen';
+import LandingPage from './screens/LandingPage';
 import ViewScreen from './screens/ViewScreen';
 
 
@@ -29,6 +30,10 @@ export default function App() {
         <Stack.Navigator 
           initialRouteName="Landing"
         >
+          <Stack.Screen 
+            name="Landing" 
+            component={LandingPage}
+          />
           <Stack.Screen 
             name="Login" 
             component={LoginScreen}
