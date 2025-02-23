@@ -57,12 +57,12 @@ export default function IntentScreen({ navigation }: IntentScreenProps) {
 const styles = StyleSheet.create({
   container: {
     flex: 1,
-    backgroundColor: '#ECE0F6', 
+    backgroundColor: '#ffead1', 
     alignItems: 'center',
     justifyContent: 'center',
   },
   title: {
-    color: '#5C0983',
+    color: '#e6635a',
     fontSize: 35,
     textAlign: 'center',
     fontFamily: 'InstrumentSans-Regular',
@@ -70,7 +70,7 @@ const styles = StyleSheet.create({
     marginBottom: 45,
   },
   imageBackground: {
-    backgroundColor: '#5C0983', 
+    backgroundColor: '#ffa130', 
     width: '100%',
     paddingVertical: 15, 
   },
@@ -104,9 +104,10 @@ const styles = StyleSheet.create({
     marginTop: 35,
   },
   linkText: {
-    color: '#5C0983',
+    color: '#e6635a',
     fontFamily: 'InstrumentSans-Regular',
     fontSize: 16,
     textDecorationLine: 'underline',
+
   },
 });

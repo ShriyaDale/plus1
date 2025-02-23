@@ -8,6 +8,8 @@ import IntentScreen from './screens/IntentScreen';
 import ProfileFormScreen from './screens/ProfileFormScreen';
 import SwipeScreen from './screens/SwipeScreen';
 import LandingPage from './screens/LandingPage';
+import ViewScreen from './screens/ViewScreen';
+
 
 // Define the type for route parameters
 export type RootStackParamList = {
@@ -16,6 +18,7 @@ export type RootStackParamList = {
   Intent: undefined;
   ProfileForm: { type: 'friend' | 'partner' };
   Swipe: undefined;
+  View: undefined;
 };
 
 const Stack = createStackNavigator<RootStackParamList>();
@@ -46,6 +49,10 @@ export default function App() {
           <Stack.Screen 
             name="Swipe" 
             component={SwipeScreen}
+          />
+          <Stack.Screen 
+            name="View" 
+            component={ViewScreen}
           />
         </Stack.Navigator>
       </NavigationContainer>

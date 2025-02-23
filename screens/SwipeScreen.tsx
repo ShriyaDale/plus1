@@ -1,6 +1,9 @@
-import React from 'react';
-import { View, Text, StyleSheet, Dimensions, ImageBackground } from 'react-native';
+import React, { useState } from 'react';
+import { View, Text, StyleSheet, Dimensions, TouchableOpacity, ImageBackground } from 'react-native';
 import Swiper from 'react-native-deck-swiper';
+import { useNavigation } from '@react-navigation/native';
+import { NativeStackNavigationProp } from '@react-navigation/native-stack';
+import ViewScreen from './ViewScreen'; 
 import { getFirestore, collection, addDoc } from 'firebase/firestore';
 import { initializeApp } from 'firebase/app';
 import { firebaseConfig } from '../firebaseConfig';
@@ -16,7 +19,14 @@ type Activity = {
   description: string;
 };
 
-const activityImages: { [key: string]: any } = {
+type RootStackParamList = {
+  View: undefined;
+};
+
+export default function SwipeScreen() {
+  const navigation = useNavigation<NativeStackNavigationProp<RootStackParamList>>();
+  const [allCardsSwiped, setAllCardsSwiped] = useState(false);
+  const activityImages: { [key: string]: any } = {
   'Coffee Date': require('../assets/images/coffee-date.png'),
   'Dinner Date': require('../assets/images/dinner-date.jpg'),
   'Movie Night': require('../assets/images/movie-night.jpg'),
@@ -28,12 +38,9 @@ const activityImages: { [key: string]: any } = {
   'Kayaking': require('../assets/images/kayaking.jpg'),
   'Pottery Class': require('../assets/images/pottery-class.jpg'),
   'Music Jam Session': require('../assets/images/music-jam-session.jpg'),
-};
-
-export default function SwipeScreen() {
+  }  
   const [rightSwipes, setRightSwipes] = React.useState(0);
   const [showResults, setShowResults] = React.useState(false);
-  
   const activities = [
     { id: 1, title: 'Coffee Date', description: 'Casual coffee meetup' },
     { id: 2, title: 'Dinner Date', description: 'Go to a nice restaurant' },  
@@ -75,6 +82,14 @@ export default function SwipeScreen() {
     }
   };
 
+  const handleAllCardsSwiped = () => {
+    setAllCardsSwiped(true);
+  };
+
+  const handleGetDateRecommendations = () => {
+    navigation.navigate('View');
+  };
+
   return (
     <View style={styles.container}>
       <Swiper
@@ -96,11 +111,20 @@ export default function SwipeScreen() {
         }}
         onSwipedLeft={(cardIndex) => handleSwipe('left', cardIndex)}
         onSwipedRight={(cardIndex) => handleSwipe('right', cardIndex)}
+        onSwipedAll={handleAllCardsSwiped}
         cardIndex={0}
-        backgroundColor={'#F5F5F5'}
+        backgroundColor={'#ffead1'}
         stackSize={3}
         cardStyle={styles.cardStyle}
       />
+      {allCardsSwiped && (
+        <TouchableOpacity 
+          style={styles.loginButton} 
+          onPress={handleGetDateRecommendations}
+        >
+          <Text style={styles.loginButtonText}>get date recommendations</Text>
+        </TouchableOpacity>
+      )}
     </View>
   );
 }
@@ -109,7 +133,7 @@ export default function SwipeScreen() {
 const styles = StyleSheet.create({
   container: {
     flex: 1,
-    backgroundColor: '#D8C1EB',
+    backgroundColor: '#ffead1',
   },
   card: {
     width: SCREEN_WIDTH * 0.9,
@@ -121,6 +145,23 @@ const styles = StyleSheet.create({
     shadowOpacity: 0.25,
     shadowRadius: 3.84,
     elevation: 5,
+  },
+  loginButton: {
+    backgroundColor: '#e6635a',
+    padding: 10,
+    borderRadius: 20,
+    alignItems: 'center',
+    marginTop: 300,
+    width: '60%',
+    alignSelf: 'center',
+  },
+  loginButtonText: {
+    color: 'white',
+    fontSize: 16,
+    fontFamily: 'InstrumentSans-Regular',
+  },
+  cardStyle: {
+    top: 50,
   },
   imageBackground: {
     width: '100%',
@@ -152,4 +193,27 @@ const styles = StyleSheet.create({
   cardStyle: {
     marginTop: 50,
   },
-});
+  button: {
+    backgroundColor: '#FF6B6B',
+    padding: 15,
+    borderRadius: 10,
+    width: '80%',
+    alignItems: 'center',
+    position: 'absolute',
+    bottom: 50,
+    alignSelf: 'center',
+    shadowColor: '#000',
+    shadowOffset: {
+      width: 0,
+      height: 2,
+    },
+    shadowOpacity: 0.25,
+    shadowRadius: 3.84,
+    elevation: 5,
+  },
+  buttonText: {
+    color: 'white',
+    fontSize: 16,
+    fontWeight: 'bold',
+  },
+}); 
