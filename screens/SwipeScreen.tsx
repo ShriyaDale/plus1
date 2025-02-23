@@ -7,6 +7,7 @@ import ViewScreen from './ViewScreen';
 import { getFirestore, collection, addDoc } from 'firebase/firestore';
 import { initializeApp } from 'firebase/app';
 import { firebaseConfig } from '../firebaseConfig';
+import ConfettiCannon from 'react-native-confetti-cannon';
 
 const SCREEN_WIDTH = Dimensions.get('window').width;
 
@@ -66,6 +67,7 @@ export default function SwipeScreen() {
     // Check if this is the last card
     if (cardIndex === activities.length - 1) {
       setShowResults(true);
+      setAllCardsSwiped(true);
     }
 
     try {
@@ -118,6 +120,16 @@ export default function SwipeScreen() {
         cardStyle={styles.cardStyle}
       />
       {allCardsSwiped && (
+        <ConfettiCannon 
+                count={200}
+                origin={{ x: SCREEN_WIDTH / 2, y: 0 }} 
+                autoStart={true} 
+                fadeOut={true}
+                fallSpeed={3000} 
+              />
+        )}
+      
+      {allCardsSwiped && (
         <TouchableOpacity 
           style={styles.loginButton} 
           onPress={handleGetDateRecommendations}
@@ -125,6 +137,7 @@ export default function SwipeScreen() {
           <Text style={styles.loginButtonText}>get date recommendations</Text>
         </TouchableOpacity>
       )}
+
     </View>
   );
 }
