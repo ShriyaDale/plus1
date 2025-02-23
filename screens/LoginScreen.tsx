@@ -2,7 +2,7 @@ import React, { useState } from 'react';
 import { View, TextInput, TouchableOpacity, Text, StyleSheet } from 'react-native';
 import { StackNavigationProp } from '@react-navigation/stack';
 import { RootStackParamList } from '../App';
-import logo from '../constants/logo.png';
+import logo from '../constants/';
 import { Image } from 'expo-image';
 
 type LoginScreenProps = {
