@@ -241,7 +241,7 @@ const ViewScreen = () => {
     <View style={styles.container}>
       {/* Header */}
       <View style={styles.header}>
-        <Image source={require('../constants/logo.png')} style={{ width: 100, height: 100 }} />
+        <Image source={require('../constants/logo.png')} style={{ width: 50, height: 50 }} />      
       </View>
 
       {/* Tabs */}
