@@ -3,12 +3,19 @@ import { View, Text, TouchableOpacity, StyleSheet, ScrollView, Image } from "rea
 
 const ViewScreen = () => {
   const [activeTab, setActiveTab] = useState("DateIdeas");
+  const [active, setActive] = useState("matches");
 
   const dateIdeas = [
     { id: 1, location: "coffee date", date: "2/23/2025" },
     { id: 2, location: "movie night", date: "2/23/2025" },
     { id: 3, location: "hiking", date: "2/23/2025" },
   ];
+
+  const matches = [
+    { id: 1, name: "john", location: "coffee date" },
+    { id: 2, name: "rohan", location: "hiking" },
+    { id: 3, name: "marco", location: "coffee date" },
+  ]
 
   return (
     <View style={styles.container}>
@@ -46,6 +53,19 @@ const ViewScreen = () => {
               <View>
                 <Text style={styles.cardTitle}>{date.location}</Text>
                 <Text style={styles.cardSubtitle}>selected: {date.date}</Text>
+              </View>
+            </View>
+          ))}
+        <TouchableOpacity style={styles.button}>
+          <Text style={styles.buttonText}>choose more</Text>
+        </TouchableOpacity>
+        {activeTab === "matches" &&
+          matches.map((match) => (
+            <View key={match.id} style={styles.card}>
+              <View style={styles.circle}></View>
+              <View>
+                <Text style={styles.cardTitle}>{match.name}</Text>
+                <Text style={styles.cardSubtitle}>preferred date: {match.location}</Text>
               </View>
             </View>
           ))}
