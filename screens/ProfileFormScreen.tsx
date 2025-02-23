@@ -73,16 +73,16 @@ export default function ProfileFormScreen({ navigation, route }: ProfileFormScre
           )}
         </TouchableOpacity>
 
-        <Text style={styles.text}>your location:</Text>
+        <Text style={styles.text}>1. your location:</Text>
         <View style={styles.inputRow}>
           <View style={styles.cityInputContainer}>
-            <TextInput
-              style={styles.cityInput}
-              placeholder="enter city"
-              placeholderTextColor="#e6635a"
-              value={formData.city}
-              onChangeText={(text) => setFormData({ ...formData, city: text })}
-            />
+          <TextInput
+            style={styles.cityInput}
+            placeholder="enter city"
+            placeholderTextColor="rgba(230, 99, 90, 0.3)" // ✅ More opaque placeholder
+            value={formData.city}
+            onChangeText={(text) => setFormData({ ...formData, city: text })}
+          />
           </View>
 
           <View style={styles.dropdownContainer}>
@@ -116,7 +116,7 @@ export default function ProfileFormScreen({ navigation, route }: ProfileFormScre
           </View>
         </View>
 
-        <Text style={styles.text}>preferred partner age range:</Text>
+        <Text style={styles.text}>2. preferred partner age range:</Text>
         <View style={styles.pickerContainer}>
           <Picker
             selectedValue={formData.age}
@@ -134,7 +134,7 @@ export default function ProfileFormScreen({ navigation, route }: ProfileFormScre
           </Picker>
         </View>
 
-        <Text style={styles.text}>your gender:</Text>
+        <Text style={styles.text}>3. your gender:</Text>
         <View style={styles.pickerContainer}>
           <Picker
             selectedValue={formData.gender}
@@ -150,7 +150,7 @@ export default function ProfileFormScreen({ navigation, route }: ProfileFormScre
           </Picker>
         </View>
 
-        <Text style={styles.text}>your sexual orientation:</Text>
+        <Text style={styles.text}>4. your sexual orientation:</Text>
         <View style={styles.pickerContainer}>
           <Picker
             selectedValue={formData.orientation}
@@ -182,7 +182,7 @@ const styles = StyleSheet.create({
   container: {
     flex: 1,
     padding: 20,
-    backgroundColor: '#ffb965',
+    backgroundColor: '#ffead1',
   },
   title: {
     color: '#e6635a',
@@ -191,25 +191,28 @@ const styles = StyleSheet.create({
     marginBottom: 20,
     alignSelf: 'center',
     fontWeight: 'bold',
+    textAlign: 'center',
   },
   text: {
     color: '#e6635a',
-    fontSize: 20,
+    fontSize: 25,
     fontFamily: 'InstrumentSans-Regular',
     marginBottom: 10,
+
   },
   inputRow: {
     flexDirection: 'row',
     color: 'black',
     alignItems: 'center',
-    marginBottom: 12,
-  },
+    marginBottom: 50,
+    width: 318
+},
   cityInputContainer: {
     flex: 3, 
   },
   cityInput: {
     height: 50,
-    backgroundColor: '#ffead1',
+    backgroundColor: '#ffff',
     color: '#white',
     borderRadius: 12,
     paddingHorizontal: 15,
@@ -217,31 +220,39 @@ const styles = StyleSheet.create({
     marginRight: 10,
   },
   dropdownContainer: {
-    flex: 0.8, 
-    position: 'relative',
+    flex: 0.8,
+    position: 'relative',  // ✅ Allows absolute positioning for the dropdown
+    zIndex: 1,
   },
   dropbtn: {
-    backgroundColor: '#ffead1',
+    backgroundColor: '#ffff',
     paddingVertical: 14,
     paddingHorizontal: 10,
     borderRadius: 12,
     alignItems: 'center',
     justifyContent: 'center',
+    width: 100
   },
   dropbtnText: {
-    color: '#e6635a',
+    color: "rgba(230, 99, 90, 1)", // ✅ More opaque red-orange text
+    // color: '#e6635a',
     fontSize: 20,
   },
   dropdownContent: {
-    position: 'absolute',
-    top: '100%', 
+    position: 'absolute', // ✅ Detach from normal layout flow
+    top: 40, // ✅ Move it down so it overlays the button
     left: 0,
-    width: '100%', 
-    alignItems: 'center',
-    backgroundColor: '#ffead1',
-    borderRadius: 12,
+    width: 100,
+    backgroundColor: '#ffb965',
+    borderBottomLeftRadius: 12,
+    borderBottomRightRadius: 12,
     maxHeight: 150,
-    zIndex: 1000,
+    zIndex: 1,  // ✅ Ensures it appears above other UI elements
+    shadowColor: "#000",  // ✅ Adds slight shadow for visibility
+    shadowOffset: { width: 0, height: 2 },
+    shadowOpacity: 0.2,
+    shadowRadius: 3,
+    elevation: 5,
   },
   scrollableDropdown: {
     maxHeight: 150,
@@ -253,27 +264,29 @@ const styles = StyleSheet.create({
   dropdownItemText: {
     color: '#e6635a',
     fontSize: 20,
+    zIndex: 1,
   },
   pickerContainer: {
     backgroundColor: 'white', 
     borderRadius: 12,
-    marginBottom: 12,
+    marginBottom: 50,
     paddingHorizontal: 10,
-  },
+},
   picker: {
     color: 'black',
     fontWeight: 'bold',
   },
   button: {
-    backgroundColor: '#ffa130',
+    backgroundColor: '#e6635a',
     padding: 15,
     borderRadius: 25,
     alignItems: 'center',
     marginTop: 10,
+    marginBottom: 100
   },
   buttonText: {
-    color: 'white',
-    fontSize: 16,
+    color: '#ffff',
+    fontSize: 20,
     fontFamily: 'InstrumentSans-Regular',
   },
   imageUploadContainer: { 
@@ -284,12 +297,15 @@ const styles = StyleSheet.create({
     alignItems: 'center', 
     justifyContent: 'center', 
     alignSelf: 'center', 
-    marginBottom: 20 
+    marginBottom: 50 
+
   },
   uploadText: { 
     color: 'white', 
     fontSize: 16, 
-  },
+    alignSelf: 'center',
+    textAlign: 'center',
+},
   profileImage: { 
     width: 120, 
     height: 120, 
