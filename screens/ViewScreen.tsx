@@ -235,7 +235,7 @@ const ViewScreen = () => {
   const matchImages = {
     john: require('../assets/images/john.png'),
     rohan: require('../assets/images/rohan.png'),
-    marco: require('../assets/images/marco.png'),
+    marco: require('../assets/images/marco.png'), 
   };
 
   return (

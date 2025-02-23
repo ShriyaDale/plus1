@@ -248,7 +248,7 @@ const styles = StyleSheet.create({
     bottom: 80,
     width: SCREEN_WIDTH,
     flexDirection: 'row',
-    justifyContent: 'space-around',
+    justifyContent: 'space-around', 
     alignItems: 'center',
     zIndex: 3,
   },
