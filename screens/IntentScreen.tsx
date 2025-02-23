@@ -54,6 +54,7 @@ export default function IntentScreen({ navigation }: IntentScreenProps) {
   );
 }
 
+
 const styles = StyleSheet.create({
   container: {
     flex: 1,
@@ -81,25 +82,33 @@ const styles = StyleSheet.create({
   },
   halfScreen: {
     flex: 1,
+    position: 'relative',
   },
   overlayContainer: {
     flex: 1,
-    position: 'relative',
+    position: 'absolute',
+    top: 0,
+    left: 0,
+    right: 0,
+    bottom: 0,
     justifyContent: 'center',
     alignItems: 'center',
-    color: 'black',
+  },
+  overlayText: {
+    position: 'absolute',
+    top: '50%', 
+    left: '50%', 
+    transform: [{ translateX: -50 }, { translateY: -190 }], 
+    fontSize: 20,
+    color: '#e6635a', 
+    paddingHorizontal: 15,
+    paddingVertical: 5,
+    borderRadius: 10,
+    textAlign: 'center',
   },
   image: {
     width: '100%',
     height: '100%',
-  },
-  overlayText: {
-    position: 'absolute',
-    top: 20, 
-    left: '50%', 
-    transform: [{ translateX: -30 }], 
-    fontSize: 18,
-    color: '#5C0983', 
   },
   linkContainer: {
     marginTop: 35,
