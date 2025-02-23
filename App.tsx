@@ -7,9 +7,11 @@ import LoginScreen from './screens/LoginScreen';
 import IntentScreen from './screens/IntentScreen';
 import ProfileFormScreen from './screens/ProfileFormScreen';
 import SwipeScreen from './screens/SwipeScreen';
+import LandingPage from './screens/LandingPage';
 
 // Define the type for route parameters
 export type RootStackParamList = {
+  Landing: undefined;
   Login: undefined;
   Intent: undefined;
   ProfileForm: { type: 'friend' | 'partner' };
@@ -23,8 +25,12 @@ export default function App() {
     <SafeAreaProvider>
       <NavigationContainer>
         <Stack.Navigator 
-          initialRouteName="Login"
+          initialRouteName="Landing"
         >
+          <Stack.Screen 
+            name="Landing" 
+            component={LandingPage}
+          />
           <Stack.Screen 
             name="Login" 
             component={LoginScreen}
