@@ -53,7 +53,7 @@ export default function App() {
           <Stack.Screen 
             name="View" 
             component={ViewScreen}
-          />
+            />
         </Stack.Navigator>
       </NavigationContainer>
     </SafeAreaProvider>
