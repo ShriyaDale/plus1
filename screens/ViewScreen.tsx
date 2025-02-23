@@ -212,6 +212,7 @@
 // });
 
 import React, { useState } from "react";
+import chat from '../assets/images/chat.png';
 import { View, Text, TouchableOpacity, StyleSheet, ScrollView, Image } from "react-native";
 
 const ViewScreen = () => {
@@ -291,6 +292,7 @@ const ViewScreen = () => {
               <View>
                 <Text style={styles.cardTitle}>{match.name}</Text>
                 <Text style={styles.cardSubtitle}>preferred date: {match.location}</Text>
+                <Image source={chat} style={styles.chatIcon}/>
               </View>
             </View>
           ))}
@@ -335,6 +337,11 @@ const styles = StyleSheet.create({
   subtitle: {
     fontSize: 18,
     color: "#4B0082",
+  },
+  chatIcon: {
+    width: 30, 
+    height: 20,
+    marginLeft: 230
   },
   tabContainer: {
     flexDirection: "row",
