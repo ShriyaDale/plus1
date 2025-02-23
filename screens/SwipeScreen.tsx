@@ -4,7 +4,6 @@ import Swiper from 'react-native-deck-swiper';
 import { useNavigation } from '@react-navigation/native';
 import { NativeStackNavigationProp } from '@react-navigation/native-stack';
 import ViewScreen from './ViewScreen'; 
-import Swiper from 'react-native-deck-swiper';
 import { getFirestore, collection, addDoc } from 'firebase/firestore';
 import { initializeApp } from 'firebase/app';
 import { firebaseConfig } from '../firebaseConfig';
@@ -39,9 +38,7 @@ export default function SwipeScreen() {
   'Kayaking': require('../assets/images/kayaking.jpg'),
   'Pottery Class': require('../assets/images/pottery-class.jpg'),
   'Music Jam Session': require('../assets/images/music-jam-session.jpg'),
-};
-
-export default function SwipeScreen() {
+  }  
   const [rightSwipes, setRightSwipes] = React.useState(0);
   const [showResults, setShowResults] = React.useState(false);
   const activities = [
@@ -116,7 +113,7 @@ export default function SwipeScreen() {
         onSwipedRight={(cardIndex) => handleSwipe('right', cardIndex)}
         onSwipedAll={handleAllCardsSwiped}
         cardIndex={0}
-        backgroundColor={'#F5F5F5'}
+        backgroundColor={'#ffead1'}
         stackSize={3}
         cardStyle={styles.cardStyle}
       />
@@ -136,7 +133,7 @@ export default function SwipeScreen() {
 const styles = StyleSheet.create({
   container: {
     flex: 1,
-    backgroundColor: '#D8C1EB',
+    backgroundColor: '#ffead1',
   },
   card: {
     width: SCREEN_WIDTH * 0.9,
@@ -150,7 +147,7 @@ const styles = StyleSheet.create({
     elevation: 5,
   },
   loginButton: {
-    backgroundColor: '#9747FF',
+    backgroundColor: '#e6635a',
     padding: 10,
     borderRadius: 20,
     alignItems: 'center',
@@ -165,7 +162,8 @@ const styles = StyleSheet.create({
   },
   cardStyle: {
     top: 50,
-    imageBackground: {
+  },
+  imageBackground: {
     width: '100%',
     height: '100%',
   },
