@@ -5,18 +5,16 @@ const ViewScreen = () => {
   const [activeTab, setActiveTab] = useState("DateIdeas");
 
   const dateIdeas = [
-    { id: 1, location: "Date location", date: "2/22/2025" },
-    { id: 2, location: "Date location", date: "2/22/2025" },
-    { id: 3, location: "Date location", date: "2/22/2025" },
-    { id: 4, location: "Date location", date: "2/22/2025" },
+    { id: 1, location: "coffee date", date: "2/23/2025" },
+    { id: 2, location: "movie night", date: "2/23/2025" },
+    { id: 3, location: "hiking", date: "2/23/2025" },
   ];
 
   return (
     <View style={styles.container}>
       {/* Header */}
       <View style={styles.header}>
-        <Image source={require('../constants/logo.png')} style={{ width: 146, height: 80 }} />
-        <Text style={styles.subtitle}>View Menu</Text>
+        <Image source={require('../constants/logo.png')} style={{ width: 100, height: 100 }} />
       </View>
 
       {/* Tabs */}
@@ -26,15 +24,15 @@ const ViewScreen = () => {
           onPress={() => setActiveTab("DateIdeas")}
         >
           <Text style={[styles.tabText, activeTab === "DateIdeas" ? styles.activeTabText : null]}>
-            Date Ideas
+            date ideas
           </Text>
         </TouchableOpacity>
         <TouchableOpacity 
-          style={[styles.tab, activeTab === "Matches" ? styles.activeTab : null]}
-          onPress={() => setActiveTab("Matches")}
+          style={[styles.tab, activeTab === "matches" ? styles.activeTab : null]}
+          onPress={() => setActiveTab("matches")}
         >
-          <Text style={[styles.tabText, activeTab === "Matches" ? styles.activeTabText : null]}>
-            Matches
+          <Text style={[styles.tabText, activeTab === "matches" ? styles.activeTabText : null]}>
+            matches
           </Text>
         </TouchableOpacity>
       </View>
@@ -47,25 +45,25 @@ const ViewScreen = () => {
               <View style={styles.circle}></View>
               <View>
                 <Text style={styles.cardTitle}>{date.location}</Text>
-                <Text style={styles.cardSubtitle}>Selected: {date.date}</Text>
+                <Text style={styles.cardSubtitle}>selected: {date.date}</Text>
               </View>
             </View>
           ))}
         <TouchableOpacity style={styles.button}>
-          <Text style={styles.buttonText}>Choose More</Text>
+          <Text style={styles.buttonText}>choose more</Text>
         </TouchableOpacity>
       </ScrollView>
 
       {/* Footer Navigation */}
       <View style={styles.footer}>
         <TouchableOpacity>
-          <Text style={styles.icon}>🏠</Text>
+          <Image source={require('../constants/house.png')} style={{ width: 25, height: 25 }} />
         </TouchableOpacity>
         <TouchableOpacity>
-          <Text style={styles.icon}>👁</Text>
+          <Image source={require('../constants/eye.png')} style={{ width: 25, height: 25 }} />
         </TouchableOpacity>
         <TouchableOpacity>
-          <Text style={styles.icon}>👤</Text>
+          <Image source={require('../constants/profile.png')} style={{ width: 25, height: 25 }} />
         </TouchableOpacity>
       </View>
     </View>
@@ -77,10 +75,10 @@ export default ViewScreen;
 const styles = StyleSheet.create({
   container: {
     flex: 1,
-    backgroundColor: "#D8BFD8",
+    backgroundColor: "#ffb965",
   },
   header: {
-    backgroundColor: "#E6E6FA",
+    backgroundColor: "#ffead1",
     padding: 20,
     alignItems: "center",
   },
@@ -95,20 +93,42 @@ const styles = StyleSheet.create({
   },
   tabContainer: {
     flexDirection: "row",
-    backgroundColor: "#DDA0DD",
-    paddingVertical: 10,
+    backgroundColor: "#ffead1",
+    height: 50,
+    borderTopLeftRadius: 15,
+    borderTopRightRadius: 15, 
+    overflow: "hidden",
+    outlineColor: '#ffa130',
+    color: '#e6635a'
   },
   tab: {
     flex: 1,
     alignItems: "center",
-    paddingVertical: 10,
+    justifyContent: "center",
+    height: "100%",
+    borderTopLeftRadius: 15,
+    borderTopRightRadius: 15,
+    outlineColor: '#ffa130',
+    color: '#e6635a',
+    borderTopWidth: 2, // ✅ Adds black outline
+    borderRightWidth: 2, // ✅ Adds black outline
+    borderLeftWidth: 2, // ✅ Adds black outline
+    borderColor: "#ffb965"
   },
   activeTab: {
-    backgroundColor: "#BA55D3",
+    backgroundColor: "#ffb965",
+    height: "100%",
+    justifyContent: "center",
+    borderTopLeftRadius: 15,
+    borderTopRightRadius: 15, 
+    color: '#e6635a',
+    borderTopWidth: 0, // ✅ Adds black outline
+    borderRightWidth: 0, // ✅ Adds black outline
+    borderLeftWidth: 0, // ✅ Adds black outline  
   },
   tabText: {
     fontSize: 16,
-    color: "#333",
+    color: "#e6635a",
   },
   activeTabText: {
     color: "white",
@@ -129,27 +149,44 @@ const styles = StyleSheet.create({
   circle: {
     width: 40,
     height: 40,
-    backgroundColor: "#6A0DAD",
+    backgroundColor: "#e6635a",
     borderRadius: 20,
     marginRight: 15,
   },
   cardTitle: {
     fontSize: 16,
     fontWeight: "bold",
-    color: "#6A0DAD",
+    color: "#e6635a",
   },
   cardSubtitle: {
     fontSize: 14,
-    color: "#4B0082",
+    color: "#e6635a",
   },
   footer: {
     flexDirection: "row",
     justifyContent: "space-around",
-    backgroundColor: "#6A0DAD",
-    paddingVertical: 15,
+    backgroundColor: "#e6635a",
+    paddingVertical: 25,
   },
   icon: {
     fontSize: 24,
     color: "white",
   },  
+  button: {
+    position: "absolute", // ✅ Fixes position on screen
+    top: 400, // ✅ Keeps it 30px above the screen bottom
+    left: "10%", // ✅ Centers it horizontally
+    width: "80%", // ✅ Makes button responsive
+    backgroundColor: "#ffead1",
+    paddingVertical: 15,
+    borderRadius: 10,
+    alignItems: "center",
+    justifyContent: "center",
+  },
+  buttonText: {
+    fontSize: 20,
+    color: '#e6635a',
+    textAlign: "center", // ✅ Ensures text is centered
+    fontWeight: "bold",
+  },
 });
