@@ -7,6 +7,7 @@ import { getFirestore, collection, addDoc } from 'firebase/firestore';
 import { initializeApp } from 'firebase/app';
 import { firebaseConfig } from '../firebaseConfig';
 import ConfettiCannon from 'react-native-confetti-cannon';
+import { Image } from 'react-native';
 
 const SCREEN_WIDTH = Dimensions.get('window').width;
 
@@ -104,10 +105,13 @@ export default function SwipeScreen() {
 
   return (
     <View style={styles.container}>
-  
+      <View style={styles.header}>
+       <Image source={require('../constants/logo.png')} style={{ width: 50, height: 50 }} />
+     </View>
+
       {/* Swipe instruction text positioned above the card stack */}
       {!allCardsSwiped && <Text style={styles.swipeText}>swipe</Text>}
-  
+
       <Swiper
         cards={activities}
         renderCard={(card: Activity) => {
@@ -163,7 +167,17 @@ export default function SwipeScreen() {
           <Text style={styles.loginButtonText}>get date recommendations</Text>
         </TouchableOpacity>
       )}
-  
+     <View style={styles.footer}>
+       <TouchableOpacity>
+         <Image source={require('../constants/house.png')} style={{ width: 25, height: 25 }} />
+       </TouchableOpacity>
+       <TouchableOpacity>
+         <Image source={require('../constants/eye.png')} style={{ width: 25, height: 25 }} />
+       </TouchableOpacity>
+       <TouchableOpacity>
+         <Image source={require('../constants/profile.png')} style={{ width: 25, height: 25 }} />
+       </TouchableOpacity>
+     </View>
     </View>
   );
 }
@@ -256,4 +270,20 @@ const styles = StyleSheet.create({
     alignSelf: 'center',
     zIndex: 3,
   },
-});
+  footer: {
+    flexDirection: "row",
+    justifyContent: "space-around",
+    backgroundColor: "#e6635a",
+    paddingVertical: 20,
+    position: "absolute",
+    bottom: 0,      
+    width: "100%",
+  },
+  header: {
+    backgroundColor: "#ffead1",
+    padding: 20,
+    alignItems: "center",
+    zIndex: 3
+  },
+ 
+}); 
