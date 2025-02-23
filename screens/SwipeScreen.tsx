@@ -105,9 +105,9 @@ export default function SwipeScreen() {
 
   return (
     <View style={styles.container}>
-      <View style={styles.header}>
+      {/* <View style={styles.header}>
        <Image source={require('../constants/logo.png')} style={{ width: 50, height: 50 }} />
-     </View>
+     </View> */}
 
       {/* Swipe instruction text positioned above the card stack */}
       {!allCardsSwiped && <Text style={styles.swipeText}>swipe</Text>}
