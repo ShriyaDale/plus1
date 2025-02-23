@@ -22,7 +22,7 @@ export default function ProfileFormScreen({ navigation, route }: ProfileFormScre
     city: '',
     state: '',
   });
-
+  
   const [dropdownVisible, setDropdownVisible] = useState(false);
   const [image, setImage] = useState<string | null>(null);
 

@@ -1,95 +1,192 @@
 import React, { useState } from "react";
-import {StackNavigationProp} from '@react-navigation/stack';
-import {RootStackParamList} from '../App'; 
+import { View, Text, TouchableOpacity, StyleSheet, ScrollView, Image } from "react-native";
 
-const App = () => {
-  const [activeTab, setActiveTab] = useState("Date Ideas");
-
-type ViewScreenProps = {
-  navigation: StackNavigationProp<RootStackParamList, 'View'>;
-};
+const ViewScreen = () => {
+  const [activeTab, setActiveTab] = useState("DateIdeas");
 
   const dateIdeas = [
-    { id: 1, location: "Date location", date: "2/22/2025" },
-    { id: 2, location: "Date location", date: "2/22/2025" },
-    { id: 3, location: "Date location", date: "2/22/2025" },
-    { id: 4, location: "Date location", date: "2/22/2025" },
+    { id: 1, location: "coffee date", date: "2/23/2025" },
+    { id: 2, location: "movie night", date: "2/23/2025" },
+    { id: 3, location: "hiking", date: "2/23/2025" },
   ];
 
   return (
-    <div className="flex flex-col h-screen bg-purple-300">
+    <View style={styles.container}>
       {/* Header */}
-      <div className="bg-purple-100 p-5 text-center">
-        <h1 className="text-3xl font-bold text-purple-800">p1us 💜</h1>
-        <h2 className="text-2xl font-semibold text-purple-900">View Menu</h2>
-      </div>
+      <View style={styles.header}>
+        <Image source={require('../constants/logo.png')} style={{ width: 100, height: 100 }} />
+      </View>
 
       {/* Tabs */}
-      <div className="flex bg-purple-400 p-2">
-        <button
-          className={`flex-1 py-2 rounded-t-lg ${
-            activeTab === "Date Ideas" ? "bg-purple-500 text-white" : "bg-white"
-          }`}
-          onClick={() => setActiveTab("Date Ideas")}
+      <View style={styles.tabContainer}>
+        <TouchableOpacity 
+          style={[styles.tab, activeTab === "DateIdeas" ? styles.activeTab : null]}
+          onPress={() => setActiveTab("DateIdeas")}
         >
-          Date Ideas
-        </button>
-        <button
-          className={`flex-1 py-2 rounded-t-lg ${
-            activeTab === "Matches" ? "bg-purple-500 text-white" : "bg-white"
-          }`}
-          onClick={() => setActiveTab("Matches")}
+          <Text style={[styles.tabText, activeTab === "DateIdeas" ? styles.activeTabText : null]}>
+            date ideas
+          </Text>
+        </TouchableOpacity>
+        <TouchableOpacity 
+          style={[styles.tab, activeTab === "matches" ? styles.activeTab : null]}
+          onPress={() => setActiveTab("matches")}
         >
-          Matches
-        </button>
-      </div>
+          <Text style={[styles.tabText, activeTab === "matches" ? styles.activeTabText : null]}>
+            matches
+          </Text>
+        </TouchableOpacity>
+      </View>
 
       {/* Content */}
-      <div className="flex-grow overflow-y-auto p-4 bg-purple-400">
-        {activeTab === "Date Ideas" &&
+      <ScrollView style={styles.contentContainer}>
+        {activeTab === "DateIdeas" &&
           dateIdeas.map((date) => (
-            <div
-              key={date.id}
-              className="bg-purple-100 p-4 rounded-lg flex items-center mb-4"
-            >
-              <div className="w-12 h-12 bg-purple-700 rounded-full mr-4"></div>
-              <div>
-                <h3 className="text-purple-800 font-semibold">{date.location}</h3>
-                <p className="text-purple-700">Selected: {date.date}</p>
-              </div>
-            </div>
+            <View key={date.id} style={styles.card}>
+              <View style={styles.circle}></View>
+              <View>
+                <Text style={styles.cardTitle}>{date.location}</Text>
+                <Text style={styles.cardSubtitle}>selected: {date.date}</Text>
+              </View>
+            </View>
           ))}
-        <button className="w-full bg-white text-purple-800 py-2 rounded-lg mt-2">
-          Choose More
-        </button>
-      </div>
+        <TouchableOpacity style={styles.button}>
+          <Text style={styles.buttonText}>choose more</Text>
+        </TouchableOpacity>
+      </ScrollView>
 
       {/* Footer Navigation */}
-      <div className="flex justify-around bg-purple-800 text-white py-4">
-        <button>
-          {/* Home Icon */}
-          <svg xmlns="http://www.w3.org/2000/svg" className="w-6 h-6" viewBox="0 0 24 24" fill="none" stroke="currentColor" strokeWidth="2" strokeLinecap="round" strokeLinejoin="round">
-            <path d="M3 9L12 2l9 7v11a2 2 0 0 1-2 2H5a2 2 0 0 1-2-2z"></path>
-            <polyline points="9 22 9 12 15 12 15 22"></polyline>
-          </svg>
-        </button>
-        <button>
-          {/* Eye Icon */}
-          <svg xmlns="http://www.w3.org/2000/svg" className="w-6 h-6" viewBox="0 0 24 24" fill="none" stroke="currentColor" strokeWidth="2" strokeLinecap="round" strokeLinejoin="round">
-            <path d="M1 12s4-8 11-8 11 8 11 8-4 8-11 8S1 12 1 12z"></path>
-            <circle cx="12" cy="12" r="3"></circle>
-          </svg>
-        </button>
-        <button>
-          {/* User Icon */}
-          <svg xmlns="http://www.w3.org/2000/svg" className="w-6 h-6" viewBox="0 0 24 24" fill="none" stroke="currentColor" strokeWidth="2" strokeLinecap="round" strokeLinejoin="round">
-            <path d="M20 21v-2a4 4 0 0 0-4-4H8a4 4 0 0 0-4 4v2"></path>
-            <circle cx="12" cy="7" r="4"></circle>
-          </svg>
-        </button>
-      </div>
-    </div>
+      <View style={styles.footer}>
+        <TouchableOpacity>
+          <Image source={require('../constants/house.png')} style={{ width: 25, height: 25 }} />
+        </TouchableOpacity>
+        <TouchableOpacity>
+          <Image source={require('../constants/eye.png')} style={{ width: 25, height: 25 }} />
+        </TouchableOpacity>
+        <TouchableOpacity>
+          <Image source={require('../constants/profile.png')} style={{ width: 25, height: 25 }} />
+        </TouchableOpacity>
+      </View>
+    </View>
   );
 };
 
-export default App;
+export default ViewScreen;
+
+const styles = StyleSheet.create({
+  container: {
+    flex: 1,
+    backgroundColor: "#ffb965",
+  },
+  header: {
+    backgroundColor: "#ffead1",
+    padding: 20,
+    alignItems: "center",
+  },
+  title: {
+    fontSize: 24,
+    fontWeight: "bold",
+    color: "#6A0DAD",
+  },
+  subtitle: {
+    fontSize: 18,
+    color: "#4B0082",
+  },
+  tabContainer: {
+    flexDirection: "row",
+    backgroundColor: "#ffead1",
+    height: 50,
+    borderTopLeftRadius: 15,
+    borderTopRightRadius: 15, 
+    overflow: "hidden",
+    outlineColor: '#ffa130',
+    color: '#e6635a'
+  },
+  tab: {
+    flex: 1,
+    alignItems: "center",
+    justifyContent: "center",
+    height: "100%",
+    borderTopLeftRadius: 15,
+    borderTopRightRadius: 15,
+    outlineColor: '#ffa130',
+    color: '#e6635a',
+    borderTopWidth: 2, // ✅ Adds black outline
+    borderRightWidth: 2, // ✅ Adds black outline
+    borderLeftWidth: 2, // ✅ Adds black outline
+    borderColor: "#ffb965"
+  },
+  activeTab: {
+    backgroundColor: "#ffb965",
+    height: "100%",
+    justifyContent: "center",
+    borderTopLeftRadius: 15,
+    borderTopRightRadius: 15, 
+    color: '#e6635a',
+    borderTopWidth: 0, // ✅ Adds black outline
+    borderRightWidth: 0, // ✅ Adds black outline
+    borderLeftWidth: 0, // ✅ Adds black outline  
+  },
+  tabText: {
+    fontSize: 16,
+    color: "#e6635a",
+  },
+  activeTabText: {
+    color: "white",
+    fontWeight: "bold",
+  },
+  contentContainer: {
+    flex: 1,
+    padding: 10,
+  },
+  card: {
+    flexDirection: "row",
+    alignItems: "center",
+    backgroundColor: "white",
+    padding: 15,
+    marginVertical: 5,
+    borderRadius: 10,
+  },
+  circle: {
+    width: 40,
+    height: 40,
+    backgroundColor: "#e6635a",
+    borderRadius: 20,
+    marginRight: 15,
+  },
+  cardTitle: {
+    fontSize: 16,
+    fontWeight: "bold",
+    color: "#e6635a",
+  },
+  cardSubtitle: {
+    fontSize: 14,
+    color: "#e6635a",
+  },
+  footer: {
+    flexDirection: "row",
+    justifyContent: "space-around",
+    backgroundColor: "#e6635a",
+    paddingVertical: 25,
+  },
+  icon: {
+    fontSize: 24,
+    color: "white",
+  },  
+  button: {
+    position: "absolute", // ✅ Fixes position on screen
+    top: 400, // ✅ Keeps it 30px above the screen bottom
+    left: "10%", // ✅ Centers it horizontally
+    width: "80%", // ✅ Makes button responsive
+    backgroundColor: "#ffead1",
+    paddingVertical: 15,
+    borderRadius: 10,
+    alignItems: "center",
+    justifyContent: "center",
+  },
+  buttonText: {
+    fontSize: 20,
+    color: '#e6635a',
+    textAlign: "center", // ✅ Ensures text is centered
+    fontWeight: "bold",
+  },
+});
