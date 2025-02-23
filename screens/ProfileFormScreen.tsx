@@ -183,14 +183,15 @@ const styles = StyleSheet.create({
     flex: 1,
     padding: 20,
     backgroundColor: '#ffead1',
+    marginTop: 75
   },
   title: {
     color: '#e6635a',
-    fontSize: 30,
+    fontSize: 35,
     fontFamily: 'InstrumentSans-Regular',
-    marginBottom: 20,
+    marginBottom: 50,
     alignSelf: 'center',
-    fontWeight: 'bold',
+    fontWeight: 'medium',
     textAlign: 'center',
   },
   text: {
